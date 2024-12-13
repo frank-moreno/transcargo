@@ -8,14 +8,26 @@ const PostList = ({ category, author, startDate, endDate }) => {
   const [totalPages, setTotalPages] = useState(1);
 
   const loadPosts = async (page = 1) => {
-    const data = await fetchCustomPosts({ category, author, startDate, endDate, perPage: 5, page });
-    setPosts(data.posts);
-    setCurrentPage(data.current_page);
-    setTotalPages(data.total_pages);
+    try {
+      const { posts, currentPage, totalPages } = await fetchCustomPosts({
+        category,
+        author,
+        startDate,
+        endDate,
+        perPage: 5,
+        page,
+      });
+      setPosts(posts);
+      setCurrentPage(currentPage);
+      setTotalPages(totalPages);
+    } catch (error) {
+      console.error("Error loading posts:", error);
+    }
   };
 
   useEffect(() => {
-    loadPosts();
+    setCurrentPage(1); // Reinicia a la primera página cuando cambian los filtros
+    loadPosts(1);
   }, [category, author, startDate, endDate]);
 
   return (
@@ -24,9 +36,11 @@ const PostList = ({ category, author, startDate, endDate }) => {
       <ul>
         {posts.map((post) => (
           <li key={post.id} className="post-card">
-            {post.featured_image && <img src={post.featured_image} alt={post.title} />}
-            <h3 dangerouslySetInnerHTML={{ __html: post.title }} />
-            <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+            {post.featured_image && (
+              <img src={post.featured_image} alt={post.title.rendered || post.title} />
+            )}
+            <h3 dangerouslySetInnerHTML={{ __html: post.title.rendered || post.title }} />
+            <p dangerouslySetInnerHTML={{ __html: post.excerpt.rendered || post.excerpt }} />
             <a href={post.link} className="read-more">
               Read More
             </a>
