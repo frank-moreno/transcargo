@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { fetchCustomPosts } from "../../services/api";
 import "./PostList.scss";
 
-const PostList = ({ category, author, startDate, endDate }) => {
+const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   const loadPosts = async (page = 1) => {
     try {
-      const { posts, currentPage, totalPages } = await fetchCustomPosts({
-        category,
-        author,
-        startDate,
-        endDate,
-        perPage: 5,
-        page,
-      });
+      const { posts, currentPage, totalPages } = await fetchCustomPosts({ perPage: 5, page });
       setPosts(posts);
       setCurrentPage(currentPage);
       setTotalPages(totalPages);
@@ -26,13 +20,12 @@ const PostList = ({ category, author, startDate, endDate }) => {
   };
 
   useEffect(() => {
-    setCurrentPage(1); // Reinicia a la primera página cuando cambian los filtros
     loadPosts(1);
-  }, [category, author, startDate, endDate]);
+  }, []);
 
   return (
     <div className="post-list">
-      <h2>Posts</h2>
+      <h2>Latest Case Studies</h2>
       <ul>
         {posts.map((post) => (
           <li key={post.id} className="post-card">
@@ -41,9 +34,10 @@ const PostList = ({ category, author, startDate, endDate }) => {
             )}
             <h3 dangerouslySetInnerHTML={{ __html: post.title.rendered || post.title }} />
             <p dangerouslySetInnerHTML={{ __html: post.excerpt.rendered || post.excerpt }} />
-            <a href={post.link} className="read-more">
+            {/* Link dinámico con solución de respaldo */}
+            <Link to={post.slug ? `/post/${post.slug}` : `/post/${post.id}`} className="read-more">
               Read More
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

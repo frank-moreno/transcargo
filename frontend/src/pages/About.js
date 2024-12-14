@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const About = () => {
+const About = ({ pageId }) => {
+  const [page, setPage] = useState(null);
+
+  useEffect(() => {
+    const fetchPage = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/wp-json/wp/v2/pages/${pageId}`);
+        setPage(response.data);
+      } catch (error) {
+        console.error("Error fetching page:", error);
+      }
+    };
+
+    fetchPage();
+  }, [pageId]);
+
+  if (!page) {
+    return <p class="container">Loading...</p>;
+  }
+
   return (
-    <div className="container">
-      <h1>About This Platform</h1>
-      <p>
-        This platform provides real-time and historical data on urban transport and traffic trends, helping users and policymakers make better decisions.
-      </p>
+    <div>
+      <h1 dangerouslySetInnerHTML={{ __html: page.title.rendered }} />
+      <div dangerouslySetInnerHTML={{ __html: page.content.rendered }} />
     </div>
   );
 };

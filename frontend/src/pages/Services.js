@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./../styles/main.scss";
 
-const Home = ({ pageId }) => {
+const Services = ({ pageId }) => {
   const [page, setPage] = useState(null);
 
   useEffect(() => {
@@ -23,11 +22,11 @@ const Home = ({ pageId }) => {
   }
 
   return (
-    <div class="container">
+    <div>
       <h1 dangerouslySetInnerHTML={{ __html: page.title.rendered }} />
       <div dangerouslySetInnerHTML={{ __html: page.content.rendered }} />
     </div>
   );
 };
 
-export default Home;
+export default Services;

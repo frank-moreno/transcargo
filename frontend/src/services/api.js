@@ -19,10 +19,18 @@ export const fetchCustomPosts = async ({ category, author, startDate, endDate, p
       },
     });
 
-    const adjustedPosts = response.data.posts.map((post) => ({
-      ...post,
-      link: new URL(post.link).pathname, // Ajusta las URLs de los posts a rutas relativas
-    }));
+    // Verifica la estructura de los datos
+    console.log("API Response:", response.data);
+
+    const adjustedPosts = response.data.posts.map((post) => {
+      const url = new URL(post.link); // Convierte la URL absoluta en un objeto URL
+      const slug = url.pathname.replace(/^\/|\/$/g, ""); // Extrae el slug de la URL
+      return {
+        ...post,
+        slug, // Agrega el slug procesado
+        link: `/post/${slug}`, // Genera el enlace relativo
+      };
+    });
 
     return {
       posts: adjustedPosts, // Lista de posts con URLs relativas
