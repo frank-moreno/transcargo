@@ -18,11 +18,11 @@ const Services = ({ pageId }) => {
   }, [pageId]);
 
   if (!page) {
-    return <p class="container">Loading...</p>;
+    return <p className="container">Loading...</p>;
   }
 
   return (
-    <div>
+    <div className="container">
       <h1 dangerouslySetInnerHTML={{ __html: page.title.rendered }} />
       <div dangerouslySetInnerHTML={{ __html: page.content.rendered }} />
     </div>

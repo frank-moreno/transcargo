@@ -7,7 +7,7 @@ import PostList from '../components/Posts/PostList';
 const CaseStudies = () => {
 
   return (
-    <div class="container">
+    <div className="container">
       <PostList />
     </div>
   );

@@ -16,14 +16,13 @@ const App = () => {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home pageId={17} />} />
         <Route path="/about-us" element={<About pageId={19} />} />
         <Route path="/home" element={<Home pageId={17} />} />
         <Route path="/services" element={<Services pageId={22} />} />
         <Route path="/case-studies" element={<CaseStudies pageId={24} />} />
         <Route path="/post/:slug" element={<PostDetail />} />
         <Route path="/contact-us" element={<Contact pageId={26} />} />
-        
       </Routes>
       <Footer />
     </Router>

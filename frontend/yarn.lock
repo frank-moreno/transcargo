@@ -8348,7 +8348,7 @@ param-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-parcel@^2.9.3:
+parcel@^2.13.2:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/parcel/-/parcel-2.13.2.tgz#4b138a3c4bf0a5fc63f77345b14cd2f7f06d415f"
   integrity sha512-ROp1Lf6cihWYzdkieXH+KWVkjlqiUMqW18MBMNZQ3sQitnXWGozTgSYIfpUFLQqaHLgBfm5inOwdqmbzExdpYA==
@@ -9724,7 +9724,7 @@ sass-loader@^12.3.0:
     klona "^2.0.4"
     neo-async "^2.6.2"
 
-sass@^1.38.0, sass@^1.80.6:
+sass@^1.38.0, sass@^1.83.0:
   version "1.83.0"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.83.0.tgz#e36842c0b88a94ed336fd16249b878a0541d536f"
   integrity sha512-qsSxlayzoOjdvXMVLkzF84DJFc2HZEL/rFyGIKbbilYtAvlCxyuzUeff9LawTn4btVnLKg75Z8MMr1lxU1lfGw==

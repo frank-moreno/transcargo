@@ -1,0 +1,14 @@
+.header {
+
+    .nav {
+        li {
+            .nav-link {
+                font-weight: 500;
+                &.active {
+                    color:$orange !important;
+                }
+            }
+        }
+    }
+
+}

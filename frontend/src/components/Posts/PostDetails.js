@@ -24,11 +24,11 @@ const PostDetail = () => {
   }, [slug]);
 
   if (!post) {
-    return <p>Loading...</p>;
+    return <p className="container">Loading...</p>;
   }
 
   return (
-    <div>
+    <div className="container">
       <h1 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
       <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
     </div>
