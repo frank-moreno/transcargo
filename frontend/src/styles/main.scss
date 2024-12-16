@@ -12,7 +12,10 @@
 @import 'components';
 @import 'utilities';
 
-// Componentes individuales (opcional, si no los incluyes en components.scss)
+// Componentes individuales
 @import 'components/header';
 @import 'components/footer';
 @import 'components/buttons';
+
+//pages individuales
+@import 'pages/home';

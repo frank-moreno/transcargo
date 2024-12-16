@@ -7,6 +7,10 @@
                 &.active {
                     color:$orange !important;
                 }
+                &:hover {
+                    color: $orange !important;
+                    transition: all .3s ease-in-out;
+                }
             }
         }
     }
