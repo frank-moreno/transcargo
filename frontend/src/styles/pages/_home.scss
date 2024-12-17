@@ -41,6 +41,80 @@
             }
         }
     }
+
+    &__aboutus {
+
+        padding-top: 100px;
+        margin-bottom: 100px;
+
+        > .row {
+            .col {
+                &:nth-child(2) {
+                    .wp-block-image {
+                        img {
+                            background-blend-mode: multiply !important;
+                            &::after{
+                                content: "";
+                                background-image: url('../../assets/images/bg/arrow_bg.png');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    &__video-ship {
+        max-height: 450px;
+        overflow: hidden;
+        video {
+            object-fit: contain;
+        }
+    }
+
+    &__brands-grid {
+        > .row {
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            .col {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid $lightgrey;
+                padding: 25px 0 5px;
+            }
+        }
+    }
+
+    &__testimonials {
+        padding-top: 100px;
+        margin-bottom: 100px;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 60px;
+            .col {
+                background-color: #F7F8FA !important;
+                padding: 40px;
+                img{
+                    float: right;
+                }
+                &::before {
+                    content: "";
+                    background-image: url('../../assets/images/icons/corner.png');
+                    position: absolute;
+                    position: absolute;
+                    width: 80px;
+                    height: 80px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    margin-top: -40px;
+                    margin-left: -40px;
+                }
+            }
+        }
+    }
 }
 
 .home-container {

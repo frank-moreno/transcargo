@@ -46,6 +46,8 @@ img {
     color: $orange;
     width: fit-content;
     padding: 5px 15px;
-    margin: 0 auto;
     text-transform: uppercase;
+    &.centered {
+        margin: 0 auto;
+    }
 }
