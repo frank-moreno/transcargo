@@ -5,17 +5,18 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import {Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import "./../styles/main.scss";
 
 const Home = ({ pageId }) => {
   const [page, setPage] = useState(null);
   const [beforeSliderContent, setBeforeSliderContent] = useState(null);
   const [sliderElements, setSliderElements] = useState([]);
-  const [afterSliderContent, setAfterSliderContent] = useState(null);
+  const [afterSliderContent, setAfterSliderContent] = useState([]); // Ahora un array
   const [thumbsSwiper, setThumbsSwiper] = useState(null); // Estado para thumbsSwiper
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
+
   const onAutoplayTimeLeft = (s, time, progress) => {
     progressCircle.current.style.setProperty('--progress', 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
@@ -31,13 +32,14 @@ const Home = ({ pageId }) => {
         const sliderContent = document.createElement("div");
         sliderContent.innerHTML = pageData.content.rendered;
 
-        // Procesar contenido antes y después del slider
+        // Contenido antes del slider
         const beforeSlider = sliderContent.querySelector(".before-slider");
         if (beforeSlider) {
           setBeforeSliderContent(beforeSlider.outerHTML);
           beforeSlider.remove();
         }
 
+        // Slider principal
         const container = sliderContent.querySelector(".home-top-swiper-slider");
         if (container) {
           const row = container.querySelector(".row");
@@ -48,11 +50,9 @@ const Home = ({ pageId }) => {
           container.remove();
         }
 
-        const afterSlider = sliderContent.querySelector(".after-slider");
-        if (afterSlider) {
-          setAfterSliderContent(afterSlider.outerHTML);
-          afterSlider.remove();
-        }
+        // Contenido después del slider: Captura todo el contenido restante
+        const afterSliderNodes = Array.from(sliderContent.childNodes);
+        setAfterSliderContent(afterSliderNodes);
       } catch (error) {
         console.error("Error fetching page:", error);
       }
@@ -79,10 +79,6 @@ const Home = ({ pageId }) => {
       {sliderElements.length > 0 && (
         <>
           <Swiper
-            style={{
-              "--swiper-navigation-color": "#fff",
-              "--swiper-pagination-color": "#fff",
-            }}
             loop={true}
             spaceBetween={10}
             navigation={true}
@@ -91,7 +87,7 @@ const Home = ({ pageId }) => {
               delay: 6500,
               disableOnInteraction: true,
             }}
-            modules={[Autoplay,FreeMode, Navigation, Thumbs]}
+            modules={[Autoplay, FreeMode, Navigation, Thumbs]}
             onAutoplayTimeLeft={onAutoplayTimeLeft}
             className="main-swiper"
           >
@@ -110,17 +106,16 @@ const Home = ({ pageId }) => {
 
           {/* Thumbnails */}
           <Swiper
-            onSwiper={setThumbsSwiper} // Enlaza el Swiper secundario con el principal
+            onSwiper={setThumbsSwiper}
             spaceBetween={10}
-            slidesPerView={4} // Mostrar 4 miniaturas a la vez
+            slidesPerView={4}
             freeMode={true}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
             }}
-            watchSlidesProgress={true} // Necesario para sincronizar con el slider principal
-            modules={[Autoplay,FreeMode, Navigation, Thumbs]}
-            onAutoplayTimeLeft={onAutoplayTimeLeft}
+            watchSlidesProgress={true}
+            modules={[Autoplay, FreeMode, Navigation, Thumbs]}
             className="thumbnail-swiper"
           >
             {sliderElements.map((element, index) => (
@@ -132,12 +127,16 @@ const Home = ({ pageId }) => {
         </>
       )}
 
-      {/* Contenido después del slider */}
-      {afterSliderContent && (
-        <div
-          className="content-after-slider"
-          dangerouslySetInnerHTML={{ __html: afterSliderContent }}
-        />
+      {/* Contenido después del slider: Renderiza todo el contenido dinámico */}
+      {afterSliderContent.length > 0 && (
+        <div className="content-after-slider">
+          {afterSliderContent.map((node, index) => (
+            <div
+              key={index}
+              dangerouslySetInnerHTML={{ __html: node.outerHTML }}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

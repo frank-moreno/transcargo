@@ -19,6 +19,28 @@
             }
         }
     }
+
+    &__whatwedo {
+        padding-top: 100px;
+        padding-bottom: 50px;
+        background-color: #F7F8FA !important;
+        &--row{ 
+            &.grid {  
+                .col {
+                    background-image:url('../../assets/images/bg/arrow_bg.png') !important;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    padding: 5%;
+                    .number {
+                        position: absolute;
+                        margin-top: -65px;
+                        margin-left: 130px;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .home-container {
