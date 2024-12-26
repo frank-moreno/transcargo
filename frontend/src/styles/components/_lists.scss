@@ -1,0 +1,23 @@
+ul.wp-block-list {
+    padding-left: .5rem;
+    li {
+        display: flex;
+        align-items: center;
+        &::before{
+            content:"";
+            background-image: url('../../assets/images/icons/cheek.png') !important;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin-right: .5rem;
+        }
+        &::marker {
+            content: "";
+            display: none!important;
+        }
+    }
+}

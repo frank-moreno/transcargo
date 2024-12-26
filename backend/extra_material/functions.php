@@ -26,29 +26,8 @@ function theme_assets() {
 add_action( 'wp_enqueue_scripts', 'theme_assets' );
 
 
-include( get_template_directory() . '/templates/shortcodes/work_projects.php' );
+// include( get_template_directory() . '/templates/shortcodes/work_projects.php' );
 
-include( get_template_directory() . '/templates/shortcodes/work_projects_es.php' );
-
-include( get_template_directory() . '/templates/shortcodes/work_projects_cards.php' );
-
-include( get_template_directory() . '/templates/shortcodes/work_projects_cards_es.php' );
-
-include( get_template_directory() . '/templates/shortcodes/post_projects.php' );
-
-include( get_template_directory() . '/templates/shortcodes/post_projects_es.php' );
-
-include( get_template_directory() . '/templates/shortcodes/post_cards.php' );
-
-include( get_template_directory() . '/templates/shortcodes/post_cards_es.php' );
-
-
-add_action('wp_head', 'coockie_policy_banner');
-function coockie_policy_banner(){
-?>
-    <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js" defer></script><script>window.addEventListener("load",function(){window.wpcb.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#ffe4e1","text":"#000000","border":"#c25e5e"},"button":{"background":"#c25e5e","text":"#ffffff"}},"position":"bottom","content":{"href":"https://frank-moreno.com/cookie-policy/"}})});</script>
-<?php
-};
 
 
 //function to add favicon to website
@@ -69,29 +48,6 @@ function your_function_name_2(){
 };
 
 
-/**
- * Polylang Shortcode - https://wordpress.org/plugins/polylang/
- * Add this code in your functions.php
- * Put shortcode [polylang_langswitcher] to post/page for display flags
- *
- * @return string
- */
-function custom_polylang_langswitcher() {
-	$output = '';
-	if ( function_exists( 'pll_the_languages' ) ) {
-		$args   = [
-			'show_flags' => 1,
-			'show_names' => 0,
-			'echo'       => 0,
-		];
-		$output = '<ul class="polylang_langswitcher">'.pll_the_languages( $args ). '</ul>';
-	}
-
-	return $output;
-}
-
-add_shortcode( 'polylang_langswitcher', 'custom_polylang_langswitcher' );
-
 function theme_register_menus() {
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'textdomain'),
@@ -99,3 +55,22 @@ function theme_register_menus() {
     ));
 }
 add_action('after_setup_theme', 'theme_register_menus');
+
+@ini_set( 'upload_max_size' , '256M' ); 
+@ini_set( 'post_max_size', '256M'); 
+@ini_set( 'max_execution_time', '300' ); 
+
+
+function register_footer_cpt() {
+    register_post_type('footer_content', array(
+        'labels' => array(
+            'name' => __('Footer Content'),
+            'singular_name' => __('Footer Content')
+        ),
+        'public' => true,
+        'has_archive' => false,
+        'show_in_rest' => true,
+        'supports' => array('title', 'editor'),
+    ));
+}
+add_action('init', 'register_footer_cpt');

@@ -14,12 +14,13 @@
         color: vars.$grey;
     }
 
-    // .wpcf7-submit {
-    //     margin-top: -50px !important;
-    //     margin-right: 20px;
-    //     z-index: 9;
-    //     position: relative;
-    // }
+    .wpcf7-submit {
+        float: right;
+        margin-top: -50px;
+        z-index: 9;
+        position: relative;
+        margin-right: 18px;
+    }
 
     .content_above{
         padding-bottom: 30px;
