@@ -28,16 +28,28 @@
         background-color: #F7F8FA !important;
         &--row{ 
             &.grid {  
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 40px;
+                @include media-breakpoint-down(xl) {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                @include media-breakpoint-down(md) {
+                    grid-template-columns: repeat(1, 1fr);
+                }
                 .col {
                     background-image:url('../../assets/images/bg/arrow_bg.png') !important;
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: contain;
-                    padding: 5%;
+                    padding: 5% 5% 5% 20%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: self-start;
                     .number {
                         position: absolute;
-                        margin-top: -65px;
-                        margin-left: 130px;
+                        margin-top: -35px;
+                        margin-left: 120px;
                     }
                 }
             }

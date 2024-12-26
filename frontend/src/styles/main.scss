@@ -1,21 +1,25 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
 // Variables y mixins
-@use'variables';
-// @use'mixins';
+@import "variables";
+// @import "mixins";
 
 // Estilos básicos
-@use'base';
+@import "base";
 
 // Layout y estructura
-@use'layout';
+@import "layout";
 
 // Componentes globales
-@use'components';
-@use'utilities';
+@import "components";
+@import "utilities";
 
 // Componentes individuales
-@use'components/header';
-@use'components/footer';
-@use'components/buttons';
+@import "components/header";
+@import "components/footer";
+@import "components/buttons";
 
 //pages individuales
-@use'pages/home';
+@import "pages/home";

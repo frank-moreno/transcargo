@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import axios from 'axios';
 
 const Header = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [siteLogo, setSiteLogo] = useState('');
-  const [activePath, setActivePath] = useState('/'); // Activo por defecto en la raíz
+  const [activePath, setActivePath] = useState('/');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const API_BASE_URL = 'http://localhost:8000/wp-json';
   const location = useLocation();
 
-  // Fetch data (menu items and logo)
+  // Fetch menu items and site logo
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/menus/v1/menus/primary`);
         const adjustedMenuItems = response.data.items.map((item) => ({
           ...item,
-          url: new URL(item.url).pathname, // Convierte URLs absolutas en relativas
+          url: new URL(item.url).pathname,
         }));
         setMenuItems(adjustedMenuItems);
 
-        // Si la ruta actual no está en el menú, asignar el primer elemento como activo
         if (adjustedMenuItems.length > 0 && !adjustedMenuItems.some((item) => item.url === location.pathname)) {
           setActivePath(adjustedMenuItems[0].url);
         }
@@ -31,7 +32,7 @@ const Header = () => {
 
     const fetchSiteInfo = async () => {
       try {
-        const logoId = 46; // Replace with the actual logo ID
+        const logoId = 46;
         const response = await axios.get(`${API_BASE_URL}/wp/v2/media/${logoId}`);
         setSiteLogo(response.data.source_url);
       } catch (error) {
@@ -43,26 +44,33 @@ const Header = () => {
     fetchSiteInfo();
   }, [location.pathname]);
 
-  // Soluciona el problema del logo perdiendo la clase activa
+  // Update active path on location change
   useEffect(() => {
     if (location.pathname === '/') {
       setActivePath('/');
     }
   }, [location.pathname]);
 
-  // Manejo de clics en el logo y enlaces
+  // Manage body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+  }, [isMenuOpen]);
+
   const handleLinkClick = (url) => {
     setActivePath(url);
+    setIsMenuOpen(false);
   };
 
-  // Determina la clase activa
   const getActiveClass = (url) => (activePath === url ? 'active' : '');
 
   return (
     <header className="header p-3 mb-3 border-bottom">
       <div className="container">
-        <div className="d-flex flex-wrap align-items-center justify-content-between">
-
+        <div className="d-flex flex-wrap align-items-center justify-content-between position-relative">
           {/* Logo */}
           <Link
             to="/"
@@ -78,25 +86,55 @@ const Header = () => {
             )}
           </Link>
 
-          {/* Navigation Menu */}
-          <ul className="nav col-12 col-lg-auto me-lg-auto ms-lg-auto mb-2 justify-content-center mb-md-0">
-            {menuItems.map((item) => (
-              <li key={item.id}>
-                <Link
-                  to={item.url}
-                  className={`nav-link px-2 link-body-emphasis ${getActiveClass(item.url)}`}
-                  onClick={() => handleLinkClick(item.url)}
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* Hamburger Button */}
+          <button
+            className="d-lg-none btn border-0 p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            style={{ zIndex: 1050 }}
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
 
-          <div className="text-end">
-            <a href="tel:+990123456789" className='btn btn-outline'>+990 123 456 789</a>
-            <a href="mailto:info@email.com" className='btn btn-email'></a>
-          </div>
+          {/* Navigation Menu */}
+          <nav
+            className={`${
+              isMenuOpen ? 'd-flex' : 'd-none d-lg-flex'
+            } flex-column flex-lg-row align-items-center`}
+            style={{
+              position: isMenuOpen ? 'fixed' : 'static',
+              top: 0,
+              left: 0,
+              width: isMenuOpen ? '100%' : 'auto',
+              height: isMenuOpen ? '100%' : 'auto',
+              backgroundColor: isMenuOpen ? '#fff' : 'transparent',
+              zIndex: 1040,
+              justifyContent: isMenuOpen ? 'center' : 'flex-end',
+            }}
+          >
+            <ul className="nav flex-column flex-lg-row gap-4">
+              {menuItems.map((item) => (
+                <li key={item.id} className="nav-item">
+                  <Link
+                    to={item.url}
+                    className={`nav-link px-2 link-body-emphasis ${getActiveClass(item.url)}`}
+                    onClick={() => handleLinkClick(item.url)}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Overlay for mobile */}
+          {isMenuOpen && (
+            <div
+              className="position-fixed top-0 start-0 w-100 h-100 bg-black opacity-50 d-lg-none"
+              style={{ zIndex: 1030 }}
+              onClick={() => setIsMenuOpen(false)}
+            />
+          )}
         </div>
       </div>
     </header>
