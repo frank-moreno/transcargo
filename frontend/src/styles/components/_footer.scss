@@ -1,0 +1,42 @@
+@use '../variables' as vars;
+
+.footer-content {
+
+    background-color: vars.$black ;
+    color: vars.$white;
+    margin: 0;
+    padding-top: 50px;
+    padding-bottom: 0px;
+
+    font-size: small;
+
+    p {
+        color: vars.$grey;
+    }
+
+    // .wpcf7-submit {
+    //     margin-top: -50px !important;
+    //     margin-right: 20px;
+    //     z-index: 9;
+    //     position: relative;
+    // }
+
+    .content_above{
+        padding-bottom: 30px;
+    }
+
+    .content-below {
+        .col {
+            border: 1px solid vars.$grey;
+            padding: 25px 0;
+            p {
+                margin-bottom: 0;
+            }
+            a {
+                color: vars.$orange;
+            }
+        }
+        margin-bottom: -30px;
+    }
+
+}

@@ -1,21 +1,21 @@
 // Variables y mixins
-@import 'variables';
-// @import 'mixins';
+@use'variables';
+// @use'mixins';
 
 // Estilos básicos
-@import 'base';
+@use'base';
 
 // Layout y estructura
-@import 'layout';
+@use'layout';
 
 // Componentes globales
-@import 'components';
-@import 'utilities';
+@use'components';
+@use'utilities';
 
 // Componentes individuales
-@import 'components/header';
-@import 'components/footer';
-@import 'components/buttons';
+@use'components/header';
+@use'components/footer';
+@use'components/buttons';
 
 //pages individuales
-@import 'pages/home';
+@use'pages/home';

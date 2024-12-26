@@ -1,3 +1,5 @@
+@use 'variables' as vars;
+
 main {
 
     margin-block-start: 0 !important;
@@ -41,9 +43,9 @@ img {
 }
 
 .header_title {
-    border: 1px solid rgba($black, .2);
+    border: 1px solid rgba(vars.$black, .2);
     border-radius: 20px;
-    color: $orange;
+    color: vars.$orange;
     width: fit-content;
     padding: 5px 15px;
     text-transform: uppercase;

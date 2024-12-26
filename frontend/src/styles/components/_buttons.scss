@@ -1,3 +1,5 @@
+@use '../variables' as vars;
+
 .btn {
 
     &.btn-primary {
@@ -9,7 +11,7 @@
     }
 
     &.btn-outline {
-        border: 1px solid rgba($black, .2);
+        border: 1px solid rgba(vars.$black, .2);
         border-radius: 20px;
     }
 
@@ -27,13 +29,21 @@
     }
 
     &.btn-link {
-        color: $black;
+        color: vars.$black;
         font-weight: 500;
         text-decoration: none;
         &:hover {
-            color: $orange;
+            color: vars.$orange;
             transition: all .3s ease-in-out;
         }
     }
 
+}
+
+.wpcf7-form-control.wpcf7-submit {
+    background-color: vars.$orange;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 20px;
+    color: vars.$white;
 }

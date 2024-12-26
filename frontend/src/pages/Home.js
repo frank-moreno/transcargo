@@ -28,17 +28,17 @@ const Home = ({ pageId }) => {
         const response = await axios.get(`http://localhost:8000/wp-json/wp/v2/pages/${pageId}`);
         const pageData = response.data;
         setPage(pageData);
-
+  
         const sliderContent = document.createElement("div");
         sliderContent.innerHTML = pageData.content.rendered;
-
+  
         // Contenido antes del slider
         const beforeSlider = sliderContent.querySelector(".before-slider");
         if (beforeSlider) {
           setBeforeSliderContent(beforeSlider.outerHTML);
           beforeSlider.remove();
         }
-
+  
         // Slider principal
         const container = sliderContent.querySelector(".home-top-swiper-slider");
         if (container) {
@@ -49,15 +49,31 @@ const Home = ({ pageId }) => {
           }
           container.remove();
         }
-
-        // Contenido después del slider: Captura todo el contenido restante
-        const afterSliderNodes = Array.from(sliderContent.childNodes);
+  
+        // Contenido después del slider: Ajustar enlaces dinámicamente
+        const afterSliderNodes = Array.from(sliderContent.childNodes).map((node) => {
+          const wrapper = document.createElement("div");
+          wrapper.appendChild(node.cloneNode(true));
+  
+          // Ajustar enlaces
+          const links = wrapper.querySelectorAll("a");
+          links.forEach((link) => {
+            const originalHref = link.getAttribute("href");
+            if (originalHref) {
+              const newHref = originalHref.replace("localhost:8000", "localhost:3000/post");
+              link.setAttribute("href", newHref);
+            }
+          });
+  
+          return wrapper.innerHTML; // Retorna el contenido ajustado como HTML
+        });
+  
         setAfterSliderContent(afterSliderNodes);
       } catch (error) {
         console.error("Error fetching page:", error);
       }
     };
-
+  
     fetchPage();
   }, [pageId]);
 
@@ -130,10 +146,10 @@ const Home = ({ pageId }) => {
       {/* Contenido después del slider: Renderiza todo el contenido dinámico */}
       {afterSliderContent.length > 0 && (
         <div className="content-after-slider">
-          {afterSliderContent.map((node, index) => (
+          {afterSliderContent.map((htmlContent, index) => (
             <div
               key={index}
-              dangerouslySetInnerHTML={{ __html: node.outerHTML }}
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
           ))}
         </div>
