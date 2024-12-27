@@ -86,21 +86,11 @@ const Header = () => {
             )}
           </Link>
 
-          {/* Hamburger Button */}
-          <button
-            className="d-lg-none btn border-0 p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            style={{ zIndex: 1050 }}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-
           {/* Navigation Menu */}
           <nav
             className={`${
               isMenuOpen ? 'd-flex' : 'd-none d-lg-flex'
-            } flex-column flex-lg-row align-items-center`}
+            } flex-column flex-lg-row align-items-center mx-auto`}
             style={{
               position: isMenuOpen ? 'fixed' : 'static',
               top: 0,
@@ -109,7 +99,7 @@ const Header = () => {
               height: isMenuOpen ? '100%' : 'auto',
               backgroundColor: isMenuOpen ? '#fff' : 'transparent',
               zIndex: 1040,
-              justifyContent: isMenuOpen ? 'center' : 'flex-end',
+              justifyContent: isMenuOpen ? 'center' : 'center',
             }}
           >
             <ul className="nav flex-column flex-lg-row gap-4">
@@ -125,17 +115,47 @@ const Header = () => {
                 </li>
               ))}
             </ul>
+
+            {/* New Component for mobile */}
+            {isMenuOpen && (
+              <div className="d-block d-xl-none mt-4 text-center">
+                <div className="text-end">
+                  <a href="tel:+990123456789" className="btn btn-outline">
+                    +990 123 456 789
+                  </a>
+                  <a href="mailto:info@email.com" className="btn btn-email"></a>
+                </div>
+              </div>
+            )}
           </nav>
 
-          {/* Overlay for mobile */}
-          {isMenuOpen && (
-            <div
-              className="position-fixed top-0 start-0 w-100 h-100 bg-black opacity-50 d-lg-none"
-              style={{ zIndex: 1030 }}
-              onClick={() => setIsMenuOpen(false)}
-            />
-          )}
+          {/* New Component (Desktop Only) */}
+          <div className="d-none d-lg-flex text-end">
+            <a href="tel:+990123456789" className="btn btn-outline">
+              +990 123 456 789
+            </a>
+            <a href="mailto:info@email.com" className="btn btn-email"></a>
+          </div>
+
+          {/* Hamburger Button */}
+          <button
+            className="d-lg-none btn border-0 p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            style={{ zIndex: 1050 }}
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Overlay for mobile */}
+        {isMenuOpen && (
+          <div
+            className="position-fixed top-0 start-0 w-100 h-100 bg-black opacity-50 d-lg-none"
+            style={{ zIndex: 1030 }}
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
       </div>
     </header>
   );
