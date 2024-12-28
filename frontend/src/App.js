@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Navbar from './components/Navbar/Navbar';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header/Header.js';
 import Footer from './components/Footer/Footer.js';
+import Hero from './components/Hero/Hero.js';
 import Home from './pages/Home.js';
 import About from './pages/About.js';
 import CaseStudies from './pages/CaseStudies.js';
@@ -10,11 +10,14 @@ import Services from './pages/Services.js';
 import Contact from './pages/Contact.js';
 import PostDetail from './components/Posts/PostDetails';
 
+const Layout = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/' || location.pathname === '/home/';
 
-const App = () => {
   return (
-    <Router>
+    <>
       <Header />
+      {!isHomePage && <Hero />}
       <Routes>
         <Route path="/" element={<Home pageId={17} />} />
         <Route path="/about-us" element={<About pageId={19} />} />
@@ -25,6 +28,14 @@ const App = () => {
         <Route path="/contact-us" element={<Contact pageId={26} />} />
       </Routes>
       <Footer />
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Layout />
     </Router>
   );
 };

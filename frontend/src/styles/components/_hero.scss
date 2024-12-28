@@ -1,0 +1,26 @@
+/* Hero.css */
+.hero {
+    background: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.page-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 10px;
+}
