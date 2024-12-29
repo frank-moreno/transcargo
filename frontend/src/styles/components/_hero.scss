@@ -1,26 +1,32 @@
 /* Hero.css */
 .hero {
     background: #f9f9f9;
-    padding: 20px;
+    padding: 130px 20px 20px;
     text-align: center;
+    margin: 0px 5% 60px;
+
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+
+    color: white;
+
+    height: 50vh;
+
+    display: flex;
+    align-items: center;
 }
 
 .breadcrumb {
     font-size: 14px;
-    color: #6c757d;
-}
-
-.breadcrumb a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
+    color: white;
+    justify-content: center;
+    text-shadow: 1px 1px 0px #333;
 }
 
 .page-title {
     font-size: 48px;
     font-weight: bold;
     margin-top: 10px;
+    text-shadow: 1px 1px 0px #333;
 }

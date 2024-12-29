@@ -29,7 +29,6 @@ const PostDetail = () => {
 
   return (
     <div className="container">
-      <h1 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
       <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
     </div>
   );

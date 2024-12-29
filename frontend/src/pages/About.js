@@ -23,7 +23,6 @@ const About = ({ pageId }) => {
 
   return (
     <div className="container">
-      <h1 dangerouslySetInnerHTML={{ __html: page.title.rendered }} />
       <div dangerouslySetInnerHTML={{ __html: page.content.rendered }} />
     </div>
   );

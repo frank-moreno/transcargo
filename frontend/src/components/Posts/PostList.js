@@ -25,7 +25,6 @@ const PostList = () => {
 
   return (
     <div className="post-list">
-      <h2>Latest Case Studies</h2>
       <ul>
         {posts.map((post) => (
           <li key={post.id} className="post-card">
